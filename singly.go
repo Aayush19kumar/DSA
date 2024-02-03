@@ -97,11 +97,65 @@ func (l *LinkedList) Front() int {
 
 }
 
+func (l *LinkedList) Middle() *Node {
+	if l.Head == nil {
+		fmt.Println("[Middle]Empty list")
+		return nil
+	}
+	fast := l.Head
+	slow := l.Head
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+
+	}
+	return slow
+}
+
+func (l *LinkedList) InsertAtASpecificValue(k int) {
+	newNode := &Node{Data: k + 1}
+	if l.Head == nil {
+		fmt.Println("[InsertAtASpecificValue] Empty List")
+		return
+	}
+	current := l.Head
+	for current.Data != k {
+		current = current.Next
+	}
+
+	temp := current.Next
+	current.Next = newNode
+	newNode.Next = temp
+}
+
+func (l *LinkedList) DeleteAtASpecificValue(k int) *Node {
+	if l.Head == nil {
+		fmt.Println("[DeleteAtASpecificValue] Empty List")
+		return nil
+	}
+
+	if l.Head.Data == k {
+		return l.Head.Next
+	}
+
+	current := l.Head
+	prev := l.Head
+
+	for current.Data != k && current != nil {
+		prev = current
+		current = current.Next
+	}
+	if current != nil {
+		prev.Next = current.Next
+	}
+	return l.Head
+}
+
 func (l *LinkedList) Display() {
 
 	current := l.Head
 	if current == nil {
-		fmt.Println("empty linked list")
+		fmt.Println("[Display] empty linked list")
 		return
 	}
 	for current != nil {
@@ -110,11 +164,41 @@ func (l *LinkedList) Display() {
 	}
 	fmt.Println("nil")
 }
+func Show(head *Node) {
+	current := head
+	for current != nil {
+		fmt.Printf("%d -> ", current.Data)
+		current = current.Next
+	}
+	fmt.Println("nil")
+}
+func (l *LinkedList) Reverse() *Node {
+
+	var current, prev, next = l.Head, l.Head, l.Head
+	for current != nil {
+		next = current.Next
+		current.Next = prev
+		prev = current
+		current = next
+
+	}
+	return prev
+}
+
+func printReverseOrder(node *Node) {
+	if node != nil {
+		printReverseOrder(node.Next)
+		fmt.Printf("%d ", node.Data)
+	}
+}
 
 func main() {
 	list := LinkedList{}
 	list.Insert(1)
 	list.Insert(2)
+	list.Insert(3)
+	list.Insert(4)
+	// list.Insert(5)
 	// list.AddFront(0)
 	// list.AddFront(-1)
 	// list.AddBack(3)
@@ -124,6 +208,17 @@ func main() {
 	// list.RemoveBack()
 	// list.RemoveBack()
 	list.Display()
-	fmt.Println("Front", list.Front())
-	fmt.Println("Length is:", list.Size())
+	// fmt.Println("Front", list.Front())
+	// fmt.Println("Length is:", list.Size())
+	// middle := list.Middle()
+	// if middle != nil {
+	// 	fmt.Println("Middle of the list is :", list.Middle().Data)
+	// } else {
+	// 	fmt.Println("Middle of the list is:", 0)
+	// }
+	// list.InsertAtASpecificValue(2)
+	// list.Display()
+	// Show(list.DeleteAtASpecificValue(3))
+	Show(list.Reverse())
+
 }
