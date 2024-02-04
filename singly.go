@@ -219,6 +219,7 @@ func main() {
 	// list.InsertAtASpecificValue(2)
 	// list.Display()
 	// Show(list.DeleteAtASpecificValue(3))
-	Show(list.Reverse())
+	// Show(list.Reverse()
+	list.Display()
 
 }
