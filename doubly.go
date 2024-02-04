@@ -30,19 +30,30 @@ func (dll *DoublyList) AddNode(data int) {
 func (dll *DoublyList) PrintForward() {
 	currentNode := dll.Head
 	for currentNode != nil {
-		fmt.Printf("%d ", currentNode.Data)
+		fmt.Printf("%d -> ", currentNode.Data)
 		currentNode = currentNode.Next
 	}
-	fmt.Println()
+	fmt.Println("nil")
 }
 
 func (dll *DoublyList) PrintReverse() {
 	currentNode := dll.Tail
 	for currentNode != nil {
-		fmt.Printf("%d ", currentNode.Data)
+		fmt.Printf("%d -> ", currentNode.Data)
 		currentNode = currentNode.Prev
 	}
-	fmt.Println()
+	fmt.Println("nil")
+}
+
+func (dll *DoublyList) DeleteNode(node *Node) {
+	if node.Next == nil || node.Prev == nil {
+		fmt.Println("Next or Prev is nil")
+		return
+	}
+	prev := node.Prev
+	next := node.Next
+	prev.Next = next
+	next.Prev = prev
 }
 
 func main() {
@@ -53,5 +64,9 @@ func main() {
 	doublylist.AddNode(4)
 	doublylist.AddNode(5)
 	doublylist.PrintForward()
+	// doublylist.PrintReverse()
+	doublylist.DeleteNode(&Node{Data: 2, Next: doublylist.Head.Next.Next.Next, Prev: doublylist.Head.Next})
+	doublylist.PrintForward()
 	doublylist.PrintReverse()
+
 }
