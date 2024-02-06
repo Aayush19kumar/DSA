@@ -1,18 +1,20 @@
-package main
+spackage main
 
 import (
 	"fmt"
 )
 
-type Node struct {
-	Data int
-	Next *Node
-}
+type (
+	Node struct {
+		Data int
+		Next *Node
+	}
 
-type LinkedList struct {
-	Len  int
-	Head *Node
-}
+	LinkedList struct {
+		Len  int
+		Head *Node
+	}
+)
 
 func (l *LinkedList) Insert(data int) {
 	newNode := &Node{Data: data}
@@ -192,6 +194,38 @@ func printReverseOrder(node *Node) {
 	}
 }
 
+func swap(node *Node) {
+	temp := node.Data
+	node.Data = node.Next.Data
+	node.Next.Data = temp
+
+	current := node
+	for current != nil {
+		fmt.Printf("%d -> ", current.Data)
+		current = current.Next
+	}
+	fmt.Println("nil")
+
+}
+
+func DeleteParticularNode(node *Node) {
+	current := node
+	prev := node
+	for current != nil && current.Next != nil {
+		current.Data, current.Next.Data = current.Next.Data, current.Data
+		prev = current
+		current = current.Next
+	}
+	prev.Next = nil
+
+	for node != nil {
+		fmt.Printf("%d -> ", node.Data)
+		node = node.Next
+	}
+	fmt.Println("nil")
+
+}
+
 func main() {
 	list := LinkedList{}
 	list.Insert(1)
@@ -220,6 +254,7 @@ func main() {
 	// list.Display()
 	// Show(list.DeleteAtASpecificValue(3))
 	// Show(list.Reverse()
-	list.Display()
+	// swap(list.Head.Next)
+	DeleteParticularNode(list.Head.Next)
 
 }
