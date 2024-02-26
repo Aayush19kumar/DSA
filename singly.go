@@ -176,7 +176,7 @@ func Show(head *Node) {
 }
 func (l *LinkedList) Reverse() *Node {
 
-	var current, prev, next = l.Head, l.Head, l.Head
+	var current, prev, next = l.Head, *Node, *Node
 	for current != nil {
 		next = current.Next
 		current.Next = prev
@@ -223,6 +223,15 @@ func DeleteParticularNode(node *Node) {
 		node = node.Next
 	}
 	fmt.Println("nil")
+
+}
+
+func reverseList(head *Node) *Node {
+    current:=head
+	Tail:=head
+	for Tail!=nil{
+		Tail=Tail.next
+	}
 
 }
 
